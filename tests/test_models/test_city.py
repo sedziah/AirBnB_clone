@@ -1,22 +1,33 @@
 #!/usr/bin/python3
-"""Test suite for the City class of the models.city module"""
+"""test module for class City"""
+
+import models
+import datetime
 import unittest
 
-from models.base_model import BaseModel
-from models.city import City
+
+class CityTest(unittest.TestCase):
+    """tests the class City"""
+
+    def test_documentation(self):
+        """tests module and class docstring"""
+        self.assertIsNotNone(models.city.__doc__)
+        self.assertIsNotNone(models.city.City.__doc__)
+
+    def test_class(self):
+        """test instance class"""
+        instance = models.city.City()
+        self.assertIsInstance(instance, models.city.City)
+
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.city.City()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.state_id, str)
+        self.assertIsInstance(instance.name, str)
 
 
-class TestCity(unittest.TestCase):
-    """Test cases for the City class"""
-
-    def setUp(self):
-        self.city = City()
-        self.attr_list = ["state_id", "name"]
-
-    def test_city_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.city), BaseModel))
-
-    def test_attrs_are_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertIs(type(getattr(self.city, attr)), str)
-            self.assertFalse(bool(getattr(self.city, attr)))
+if __name__ == "__main__":
+    unittest.main()

@@ -1,27 +1,35 @@
 #!/usr/bin/python3
-"""Test suite for the User class in models.user"""
+"""test module for class User"""
+
+import models
+import datetime
 import unittest
-from models.base_model import BaseModel
-
-from models.user import User
 
 
-class TestUser(unittest.TestCase):
-    """Test cases against the User class"""
+class UserTest(unittest.TestCase):
+    """tests the class User"""
 
-    def test_attrs_are_class_attrs(self):
-        u = User()
-        # test that it is a class attribute
-        self.assertTrue(hasattr(User, "first_name")
-                        and hasattr(User, "last_name"))
+    def test_documentation(self):
+        """tests module and class docstring"""
+        self.assertIsNotNone(models.user.__doc__)
+        self.assertIsNotNone(models.user.User.__doc__)
 
-    def test_class_attrs(self):
-        u = User()
-        self.assertIs(type(u.first_name), str)
-        self.assertIs(type(u.last_name), str)
-        self.assertTrue(u.first_name == "")
-        self.assertTrue(u.last_name == "")
+    def test_class(self):
+        """test instance class"""
+        instance = models.user.User()
+        self.assertIsInstance(instance, models.user.User)
 
-    def test_user_is_a_subclass_of_basemodel(self):
-        u = User()
-        self.assertTrue(issubclass(type(u), BaseModel))
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.user.User()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.email, str)
+        self.assertIsInstance(instance.password, str)
+        self.assertIsInstance(instance.first_name, str)
+        self.assertIsInstance(instance.last_name, str)
+
+
+if __name__ == "__main__":
+    unittest.main()
